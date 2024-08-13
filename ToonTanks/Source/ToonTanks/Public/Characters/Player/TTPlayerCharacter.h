@@ -3,20 +3,20 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Pawns/TTPawn.h"
-#include "TTPlayerPawn.generated.h"
+#include "Characters/TTCharacter.h"
+#include "TTPlayerCharacter.generated.h"
 
 class UCameraComponent;
 class USpringArmComponent;
 
 UCLASS()
-class TOONTANKS_API ATTPlayerPawn : public ATTPawn
+class TOONTANKS_API ATTPlayerCharacter : public ATTCharacter
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this pawn's properties
-	ATTPlayerPawn();
+	ATTPlayerCharacter();
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -24,7 +24,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-	static ATTPlayerPawn* TTPlayer;
+	static ATTPlayerCharacter* TTPlayer;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -3,7 +3,7 @@
 
 #include "Pawns/TTPawn.h"
 
-#include "Components/CapsuleComponent.h"
+#include "Components/BoxComponent.h"
 
 // Sets default values
 ATTPawn::ATTPawn()
@@ -12,11 +12,11 @@ ATTPawn::ATTPawn()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Component Constructors
-	CapsuleComp = CreateDefaultSubobject<UCapsuleComponent>("Capsule Collider");
-	RootComponent = CapsuleComp;
+	BoxComp = CreateDefaultSubobject<UBoxComponent>("Capsule Collider");
+	RootComponent = BoxComp;
 
 	PawnBodyComp = CreateDefaultSubobject<UStaticMeshComponent>("Body");
-	PawnBodyComp->SetupAttachment(CapsuleComp);
+	PawnBodyComp->SetupAttachment(BoxComp);
 	PawnTurretComp = CreateDefaultSubobject<UStaticMeshComponent>("Turret");
 	PawnTurretComp->SetupAttachment(PawnBodyComp);
 

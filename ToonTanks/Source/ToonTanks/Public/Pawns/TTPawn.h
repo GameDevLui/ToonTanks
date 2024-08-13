@@ -6,7 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "TTPawn.generated.h"
 
-class UCapsuleComponent;
+class UBoxComponent;
 
 UCLASS()
 class TOONTANKS_API ATTPawn : public APawn
@@ -30,7 +30,7 @@ private:
 
 	// Components
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category ="Components", meta = (AllowPrivateAccess = "true"))
-	UCapsuleComponent* CapsuleComp;
+	UBoxComponent* BoxComp;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category ="Components", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* PawnBodyComp;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category ="Components", meta = (AllowPrivateAccess = "true"))
