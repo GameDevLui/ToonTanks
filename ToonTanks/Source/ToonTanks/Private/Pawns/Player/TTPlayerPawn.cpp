@@ -5,7 +5,10 @@
 
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 
+ATTPlayerPawn* ATTPlayerPawn::TTPlayer = nullptr;
 
 // Sets default values
 ATTPlayerPawn::ATTPlayerPawn()
@@ -13,6 +16,8 @@ ATTPlayerPawn::ATTPlayerPawn()
 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	TTPlayer = this;
+	
 	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>("Camera Spring Arm");
 	SpringArmComp->SetupAttachment(RootComponent);
 
@@ -39,3 +44,38 @@ void ATTPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+void ATTPlayerPawn::Move(FVector2D Value)
+{
+	MoveForward(Value.X);
+	MoveRight(Value.Y);
+}
+
+void ATTPlayerPawn::Look(FVector2D Value)
+{
+	LookUp(Value.Y);
+	LookRight(Value.X);
+}
+
+void ATTPlayerPawn::MoveForward(float Value) const
+{
+	FVector DeltaLocation = FVector::ZeroVector;
+	DeltaLocation.Y = Value * Speed * UGameplayStatics::GetWorldDeltaSeconds(GetWorld());
+	TTPlayer->AddActorLocalOffset(DeltaLocation, true, nullptr, ETeleportType::None);
+}
+
+void ATTPlayerPawn::MoveRight(float Value) const
+{
+	FVector DeltaLocation = FVector::ZeroVector;
+	DeltaLocation.X = Value * Speed * UGameplayStatics::GetWorldDeltaSeconds(GetWorld());
+	TTPlayer->AddActorLocalOffset(DeltaLocation, true, nullptr, ETeleportType::None);
+}
+
+void ATTPlayerPawn::LookUp(float Value) const
+{
+	TTPlayer->AddControllerPitchInput(Value);
+}
+
+void ATTPlayerPawn::LookRight(float Value) const
+{
+	TTPlayer->AddControllerYawInput(Value);
+}

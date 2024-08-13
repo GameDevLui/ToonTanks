@@ -23,6 +23,8 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+	static ATTPlayerPawn* TTPlayer;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -34,4 +36,20 @@ private:
 	USpringArmComponent* SpringArmComp;
 	UPROPERTY(VisibleAnywhere, Category ="Components")
 	UCameraComponent* CameraComp;
+
+	//Properties
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float Speed = 100.0f;
+	
+	//Functions
+	UFUNCTION(BlueprintCallable, Category = "Input Control")
+	void Move(FVector2D Value);
+	UFUNCTION(BlueprintCallable, Category = "Input Control")
+	void Look(FVector2D Value);
+
+	//Private Functions
+	void MoveForward(float Value) const;
+	void MoveRight(float Value) const;
+	void LookUp(float Value) const;
+	void LookRight(float Value) const;
 };
